@@ -1,0 +1,18 @@
+---
+layout: base.njk
+title: Archive
+permalink: /archive/
+---
+<h2 style="margin-bottom: 2rem;">Archive</h2>
+<ul class="archive-list">
+{% for item in collections.everything %}
+  <li>
+    <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
+    {% if item.data.linkUrl %}
+    <a href="{{ item.url }}">{{ item.data.title }} ↗</a>
+    {% else %}
+    <a href="{{ item.url }}">{{ item.data.title }}</a>
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>

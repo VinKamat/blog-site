@@ -1,0 +1,15 @@
+---
+layout: base.njk
+---
+<article class="post">
+  <header class="post-header">
+    <h2>{{ title }}</h2>
+    <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>
+    {% if tags %}
+    <div class="tags">
+      {% for tag in tags %}{% if tag !== "post" and tag !== "link" %}<a href="/tags/{{ tag }}/" class="tag">#{{ tag }}</a> {% endif %}{% endfor %}
+    </div>
+    {% endif %}
+  </header>
+  {{ content | safe }}
+</article>

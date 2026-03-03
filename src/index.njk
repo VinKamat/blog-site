@@ -1,0 +1,26 @@
+---
+layout: base.njk
+title: Home
+---
+{% for item in collections.everything %}
+<div class="feed-item">
+  {% if item.data.linkUrl %}
+  <h2><a href="{{ item.data.linkUrl }}" class="outbound">{{ item.data.title }} ↗</a></h2>
+  {% else %}
+  <h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
+  {% endif %}
+  <div class="meta">
+    <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
+    {% if item.data.tags %}
+      {% for tag in item.data.tags %}{% if tag !== "post" and tag !== "link" %} · <a href="/tags/{{ tag }}/" class="tag">#{{ tag }}</a>{% endif %}{% endfor %}
+    {% endif %}
+  </div>
+  <div class="excerpt">
+    {{ item.templateContent | safe }}
+  </div>
+</div>
+{% endfor %}
+
+{% if collections.everything.length == 0 %}
+<p style="color: var(--text-muted); font-style: italic;">Nothing here yet. The first post is coming.</p>
+{% endif %}
