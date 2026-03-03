@@ -7,7 +7,7 @@ title: Home
   {% if item.data.linkUrl %}
   <h2><a href="{{ item.data.linkUrl }}" class="outbound">{{ item.data.title }} ↗</a></h2>
   {% else %}
-  <h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
+  <h2><a href="{{ item.url | url }}">{{ item.data.title }}</a></h2>
   {% endif %}
   <div class="meta">
     <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
