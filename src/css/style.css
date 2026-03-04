@@ -310,6 +310,25 @@ article blockquote {
   line-height: 1.7;
 }
 
+/* Digest commentary — Vin's take */
+.digest-entry blockquote {
+  border-left: 3px solid #d97706;
+  background: #fffbeb;
+  padding: 0.8rem 1.2rem;
+  margin: 0.8rem 0 0 0;
+  color: #92400e;
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  border-radius: 0 6px 6px 0;
+}
+
+.digest-entry blockquote strong {
+  font-style: normal;
+  color: #78350f;
+}
+
 article code {
   font-family: var(--font-mono);
   font-size: 0.82em;
