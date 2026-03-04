@@ -3,7 +3,12 @@ layout: base.njk
 title: Archive
 permalink: /archive/
 ---
-<h2 style="margin-bottom: 2rem;">Archive</h2>
+<section class="hero" style="margin-bottom:1.1rem;">
+  <span class="hero-kicker">Timeline</span>
+  <h1>Archive</h1>
+  <p>Everything published, in one clean list.</p>
+</section>
+
 <ul class="archive-list">
 {% for item in collections.everything %}
   <li>

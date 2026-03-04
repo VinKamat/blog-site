@@ -9,6 +9,7 @@ permalink: /digest/
   <p class="digest-rss"><a href="{{ '/digest/feed.xml' | url }}">RSS Feed ↗</a></p>
 </div>
 
+<section class="feed-grid">
 {% for item in collections.digest | reverse %}
 <div class="feed-item">
   <h2><a href="{{ item.url | url }}">{{ item.data.title }}</a></h2>
@@ -16,10 +17,11 @@ permalink: /digest/
     <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
   </div>
   <div class="excerpt">
-    {{ item.templateContent | safe }}
+    <p>{{ item.templateContent | striptags | truncate(320, true, '…') }}</p>
   </div>
 </div>
 {% endfor %}
+</section>
 
 {% if collections.digest.length == 0 %}
 <p style="color: var(--text-muted); font-style: italic;">No digests yet. The first one is coming.</p>

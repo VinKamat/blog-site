@@ -2,6 +2,13 @@
 layout: base.njk
 title: Home
 ---
+<section class="hero">
+  <span class="hero-kicker">March 2026 Edition</span>
+  <h1>Architecture, AI, and the shape of what’s next.</h1>
+  <p>Short takes, deep dives, and practical notes on building real systems with AI.</p>
+</section>
+
+<section class="feed-grid">
 {% for item in collections.everything %}
 <div class="feed-item">
   {% if item.data.linkUrl %}
@@ -12,14 +19,15 @@ title: Home
   <div class="meta">
     <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
     {% if item.data.tags %}
-      {% for tag in item.data.tags %}{% if tag !== "post" and tag !== "link" %} · <a href="/tags/{{ tag }}/" class="tag">#{{ tag }}</a>{% endif %}{% endfor %}
+      {% for tag in item.data.tags %}{% if tag !== "post" and tag !== "link" %}<a href="/tags/{{ tag }}/" class="tag">#{{ tag }}</a>{% endif %}{% endfor %}
     {% endif %}
   </div>
   <div class="excerpt">
-    {{ item.templateContent | safe }}
+    <p>{{ item.templateContent | striptags | truncate(280, true, '…') }}</p>
   </div>
 </div>
 {% endfor %}
+</section>
 
 {% if collections.everything.length == 0 %}
 <p style="color: var(--text-muted); font-style: italic;">Nothing here yet. The first post is coming.</p>
