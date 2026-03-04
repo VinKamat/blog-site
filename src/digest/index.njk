@@ -1,7 +1,13 @@
 ---
 layout: base.njk
 title: AI Daily Digest
-permalink: /digest/
+eleventyExcludeFromCollections: true
+pagination:
+  data: collections.digest
+  size: 1
+  alias: digestItems
+  reverse: true
+permalink: "{% if pagination.pageNumber == 0 %}/digest/{% else %}/digest/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
 ---
 <div class="digest-header">
   <span class="digest-kicker">AI Daily Digest</span>
@@ -10,29 +16,35 @@ permalink: /digest/
   <p class="digest-rss"><a href="{{ '/digest/feed.xml' | url }}">Subscribe via RSS ↗</a></p>
 </div>
 
-<div class="section-label">
-  <span class="section-label-text">Issues</span>
-  <span class="section-label-line"></span>
-</div>
+{% set currentDigest = digestItems[0] %}
 
-<section class="feed-grid">
-{% for item in collections.digest | reverse %}
-<div class="feed-item">
-  <div class="feed-item-title-row">
-    <h2><a href="{{ item.url | url }}">{{ item.data.title }}</a></h2>
-    <span class="feed-badge feed-badge-digest">Digest</span>
-  </div>
+{% if currentDigest %}
+<article>
+  <h2>{{ currentDigest.data.title }}</h2>
   <div class="meta">
-    <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
+    <time datetime="{{ currentDigest.date | isoDate }}">{{ currentDigest.date | readableDate }}</time>
   </div>
-  <div class="excerpt">
-    <p>{{ item.templateContent | striptags | truncate(280, true, '…') }}</p>
-  </div>
-  <a class="feed-readmore" href="{{ item.url | url }}">Read issue →</a>
-</div>
-{% endfor %}
-</section>
+  {{ currentDigest.templateContent | safe }}
+</article>
 
-{% if collections.digest.length == 0 %}
+{% if pagination.pages.length > 1 %}
+<nav class="pagination-nav" aria-label="Digest navigation">
+  {% if pagination.href.previous %}
+  <a class="pagination-link pagination-prev" href="{{ pagination.href.previous | url }}">← Newer Issue</a>
+  {% else %}
+  <span class="pagination-link pagination-prev pagination-disabled" aria-hidden="true"></span>
+  {% endif %}
+
+  <span class="pagination-page-info">Issue {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+
+  {% if pagination.href.next %}
+  <a class="pagination-link pagination-next" href="{{ pagination.href.next | url }}">Older Issue →</a>
+  {% else %}
+  <span class="pagination-link pagination-next pagination-disabled" aria-hidden="true"></span>
+  {% endif %}
+</nav>
+{% endif %}
+
+{% else %}
 <p style="color: var(--text-muted); font-style: italic; margin-top: 1rem;">No digests yet. The first one is coming.</p>
 {% endif %}

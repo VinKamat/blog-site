@@ -1,3 +1,6 @@
+/* Nunito via Google Fonts CDN — add local woff2 files for production performance */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800&display=swap');
+
 @font-face {
   font-family: 'Instrument Serif';
   font-style: normal;
@@ -11,13 +14,6 @@
   font-weight: 400;
   font-display: swap;
   src: url('../fonts/instrument-serif-italic.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url('../fonts/inter-latin.woff2') format('woff2');
 }
 
 :root {
@@ -43,7 +39,7 @@
   --max-width: 940px;
   --content-width: 760px;
   --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
 }
 
@@ -58,6 +54,7 @@ html {
 
 body {
   font-family: var(--font-sans);
+  font-weight: 400;
   color: var(--text);
   background:
     radial-gradient(1500px 750px at 12% -10%, rgba(30, 80, 226, 0.09), transparent 62%),
@@ -123,7 +120,7 @@ nav a {
   font-size: .72rem;
   letter-spacing: .08em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
   border-radius: 999px;
   padding: .42rem .72rem;
   transition: color .18s ease, background .18s ease;
@@ -629,11 +626,11 @@ main {
 }
 
 .digest-entry h3 {
-  font-family: var(--font-serif);
-  font-size: 1.28rem;
-  font-weight: 400;
-  line-height: 1.28;
-  letter-spacing: -0.013em;
+  font-family: var(--font-sans);
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
   margin-bottom: .55rem;
 }
 
@@ -711,9 +708,9 @@ article h2 {
 }
 
 article h3 {
-  font-family: var(--font-serif);
-  font-size: 1.45rem;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
   margin: 2rem 0 .7rem;
   letter-spacing: -0.01em;
 }
@@ -778,10 +775,10 @@ article hr {
 /* ── ARCHIVE ── */
 
 .archive-year-label {
-  font-family: var(--font-serif);
-  font-size: 1.18rem;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0;
   color: var(--text-muted);
   padding: 1.4rem 0 .5rem;
   border-bottom: 1px solid var(--border);
@@ -876,8 +873,8 @@ article hr {
 .post-content h2,
 .post-content h3,
 .post-content h4 {
-  font-family: var(--font-serif);
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-weight: 700;
   margin-top: 1.6em;
   margin-bottom: .4em;
   color: var(--text);
@@ -901,7 +898,7 @@ article hr {
 .post-content pre {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius);
   padding: 1rem 1.2rem;
   overflow-x: auto;
   font-size: .88em;
@@ -945,7 +942,7 @@ article hr {
   text-decoration: none;
   padding: .5rem .95rem;
   border: 1px solid var(--accent);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius);
   transition: background .15s ease, color .15s ease;
 }
 
