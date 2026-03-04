@@ -1,0 +1,26 @@
+---
+permalink: /digest/feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.title }} — AI Digest</title>
+  <subtitle>Daily curated AI news with enterprise architecture commentary.</subtitle>
+  <link href="{{ site.url }}{{ '/digest/feed.xml' | url }}" rel="self"/>
+  <link href="{{ site.url }}{{ '/digest/' | url }}"/>
+  {% set lastDigest = collections.digest | last %}
+  <updated>{% if lastDigest %}{{ lastDigest.date | isoDate }}{% else %}{{ "2026-01-01" | isoDate }}{% endif %}</updated>
+  <id>{{ site.url }}{{ '/digest/' | url }}</id>
+  <author>
+    <name>{{ site.author }}</name>
+  </author>
+  {% for item in collections.digest | reverse %}
+  <entry>
+    <title>{{ item.data.title }}</title>
+    <link href="{{ site.url }}{{ item.url | url }}"/>
+    <updated>{{ item.date | isoDate }}</updated>
+    <id>{{ site.url }}{{ item.url | url }}</id>
+    <content type="html">{{ item.templateContent | safe }}</content>
+  </entry>
+  {% endfor %}
+</feed>

@@ -23,7 +23,11 @@ module.exports = function(eleventyConfig) {
     return collectionApi.getFilteredByGlob("src/links/*.md").sort((a, b) => b.date - a.date);
   });
 
-  // Combined feed (posts + links) sorted by date
+  eleventyConfig.addCollection("digest", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/digest/*.md").sort((a, b) => a.date - b.date);
+  });
+
+  // Combined feed (posts + links) sorted by date — digest excluded
   eleventyConfig.addCollection("everything", function(collectionApi) {
     return collectionApi.getFilteredByGlob(["src/posts/*.md", "src/links/*.md"]).sort((a, b) => b.date - a.date);
   });
