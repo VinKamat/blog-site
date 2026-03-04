@@ -1,21 +1,29 @@
 ---
 layout: base.njk
 title: Home
+pagination:
+  data: collections.everything
+  size: 10
+  alias: items
+permalink: "{% if pagination.pageNumber == 0 %}/index.html{% else %}/page/{{ pagination.pageNumber + 1 }}/index.html{% endif %}"
 ---
+
+{% if pagination.pageNumber == 0 %}
 <section class="hero">
   <span class="hero-kicker">March 2026</span>
   <h1>Architecture, AI,<br>and the shape of what's next.</h1>
   <p>Short takes, deep dives, and practical notes on building real systems with AI.</p>
 </section>
+{% endif %}
 
 <div class="section-label">
-  <span class="section-label-text">Latest Writing</span>
+  <span class="section-label-text">{% if pagination.pageNumber == 0 %}Latest Writing{% else %}Writing — Page {{ pagination.pageNumber + 1 }}{% endif %}</span>
   <span class="section-label-line"></span>
 </div>
 
-<section class="feed-grid">
-{% for item in collections.everything %}
-<div class="feed-item">
+<section class="feed-list">
+{% for item in items %}
+<article class="feed-item feed-item--full">
   <div class="feed-item-title-row">
     {% if item.data.linkUrl %}
     <h2><a href="{{ item.data.linkUrl }}" class="outbound">{{ item.data.title }} ↗</a></h2>
@@ -31,24 +39,32 @@ title: Home
       {% for tag in item.data.tags %}{% if tag !== "post" and tag !== "link" %}<a href="/tags/{{ tag }}/" class="tag">#{{ tag }}</a>{% endif %}{% endfor %}
     {% endif %}
   </div>
-  <div class="excerpt">
-    <p>{{ item.templateContent | striptags | truncate(200, true, '…') }}</p>
+  <div class="post-content">
+    {{ item.templateContent | safe }}
   </div>
-  {% if not item.data.linkUrl %}
-  <a class="feed-readmore" href="{{ item.url | url }}">Read more →</a>
-  {% endif %}
-</div>
+</article>
 {% endfor %}
 </section>
 
-{% if collections.everything.length == 0 %}
-<p style="color: var(--text-muted); font-style: italic; margin-top: 1rem;">Nothing here yet. The first post is coming.</p>
+{% if pagination.href.previous or pagination.href.next %}
+<nav class="pagination-nav" aria-label="Page navigation">
+  {% if pagination.href.previous %}
+  <a class="pagination-link pagination-prev" href="{{ pagination.href.previous | url }}">← Previous</a>
+  {% else %}
+  <span class="pagination-link pagination-prev pagination-disabled" aria-hidden="true"></span>
+  {% endif %}
+  <span class="pagination-page-info">Page {{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+  {% if pagination.href.next %}
+  <a class="pagination-link pagination-next" href="{{ pagination.href.next | url }}">Next →</a>
+  {% else %}
+  <span class="pagination-link pagination-next pagination-disabled" aria-hidden="true"></span>
+  {% endif %}
+</nav>
 {% endif %}
 
-{% if collections.everything.length > 0 %}
-<div class="feed-footer">
-  <a class="view-all-link" href="{{ '/archive/' | url }}">View archive →</a>
-</div>
+{% if pagination.pageNumber == 0 %}
+{% if collections.everything.length == 0 %}
+<p style="color: var(--text-muted); font-style: italic; margin-top: 1rem;">Nothing here yet. The first post is coming.</p>
 {% endif %}
 
 {% if collections.digest.length > 0 %}
@@ -56,4 +72,5 @@ title: Home
   <p><strong>AI Daily Digest</strong> — Daily AI news with commentary from an enterprise architecture perspective.</p>
   <a class="digest-promo-link" href="{{ '/digest/' | url }}">Read the Digest →</a>
 </div>
+{% endif %}
 {% endif %}
