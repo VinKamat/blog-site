@@ -180,10 +180,11 @@ main {
 }
 
 .hero h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+  font-weight: 800;
   line-height: 1.15;
-  letter-spacing: -0.018em;
+  letter-spacing: -0.03em;
   margin-bottom: .3rem;
   position: relative;
   z-index: 1;
@@ -334,10 +335,10 @@ main {
 }
 
 .feed-item h2 {
-  font-family: var(--font-serif);
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.016em;
+  letter-spacing: -0.025em;
   font-size: clamp(1.15rem, 2vw, 1.5rem);
 }
 
