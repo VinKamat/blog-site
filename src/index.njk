@@ -3,19 +3,28 @@ layout: base.njk
 title: Home
 ---
 <section class="hero">
-  <span class="hero-kicker">March 2026 Edition</span>
-  <h1>Architecture, AI, and the shape of what’s next.</h1>
+  <span class="hero-kicker">March 2026</span>
+  <h1>Architecture, AI,<br>and the shape of what's next.</h1>
   <p>Short takes, deep dives, and practical notes on building real systems with AI.</p>
 </section>
+
+<div class="section-label">
+  <span class="section-label-text">Latest Writing</span>
+  <span class="section-label-line"></span>
+</div>
 
 <section class="feed-grid">
 {% for item in collections.everything %}
 <div class="feed-item">
-  {% if item.data.linkUrl %}
-  <h2><a href="{{ item.data.linkUrl }}" class="outbound">{{ item.data.title }} ↗</a></h2>
-  {% else %}
-  <h2><a href="{{ item.url | url }}">{{ item.data.title }}</a></h2>
-  {% endif %}
+  <div class="feed-item-title-row">
+    {% if item.data.linkUrl %}
+    <h2><a href="{{ item.data.linkUrl }}" class="outbound">{{ item.data.title }} ↗</a></h2>
+    <span class="feed-badge feed-badge-link">Link</span>
+    {% else %}
+    <h2><a href="{{ item.url | url }}">{{ item.data.title }}</a></h2>
+    <span class="feed-badge feed-badge-post">Post</span>
+    {% endif %}
+  </div>
   <div class="meta">
     <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
     {% if item.data.tags %}
@@ -23,12 +32,28 @@ title: Home
     {% endif %}
   </div>
   <div class="excerpt">
-    <p>{{ item.templateContent | striptags | truncate(280, true, '…') }}</p>
+    <p>{{ item.templateContent | striptags | truncate(200, true, '…') }}</p>
   </div>
+  {% if not item.data.linkUrl %}
+  <a class="feed-readmore" href="{{ item.url | url }}">Read more →</a>
+  {% endif %}
 </div>
 {% endfor %}
 </section>
 
 {% if collections.everything.length == 0 %}
-<p style="color: var(--text-muted); font-style: italic;">Nothing here yet. The first post is coming.</p>
+<p style="color: var(--text-muted); font-style: italic; margin-top: 1rem;">Nothing here yet. The first post is coming.</p>
+{% endif %}
+
+{% if collections.everything.length > 0 %}
+<div class="feed-footer">
+  <a class="view-all-link" href="{{ '/archive/' | url }}">View archive →</a>
+</div>
+{% endif %}
+
+{% if collections.digest.length > 0 %}
+<div class="digest-promo">
+  <p><strong>AI Daily Digest</strong> — Daily AI news with commentary from an enterprise architecture perspective.</p>
+  <a class="digest-promo-link" href="{{ '/digest/' | url }}">Read the Digest →</a>
+</div>
 {% endif %}

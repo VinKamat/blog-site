@@ -14,6 +14,10 @@ module.exports = function(eleventyConfig) {
     return new Date(dateObj).toISOString();
   });
 
+  eleventyConfig.addFilter("year", (dateObj) => {
+    return new Date(dateObj).getFullYear().toString();
+  });
+
   // Collections
   eleventyConfig.addCollection("posts", function(collectionApi) {
     return collectionApi.getFilteredByGlob("src/posts/*.md").sort((a, b) => b.date - a.date);

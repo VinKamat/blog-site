@@ -3,21 +3,39 @@ layout: base.njk
 title: Archive
 permalink: /archive/
 ---
-<section class="hero" style="margin-bottom:1.1rem;">
-  <span class="hero-kicker">Timeline</span>
-  <h1>Archive</h1>
-  <p>Everything published, in one clean list.</p>
-</section>
+<div class="page-header">
+  <div>
+    <span class="page-header-kicker">Timeline</span>
+    <h1>Archive</h1>
+    <p>Everything published, in one place.</p>
+  </div>
+  {% if collections.everything.length > 0 %}
+  <span class="page-header-meta">{{ collections.everything.length }} post{% if collections.everything.length !== 1 %}s{% endif %}</span>
+  {% endif %}
+</div>
 
-<ul class="archive-list">
+{% set prevYear = "" %}
 {% for item in collections.everything %}
+  {% set yr = item.date | year %}
+  {% if yr !== prevYear %}
+    {% if prevYear !== "" %}</ul>{% endif %}
+    <h2 class="archive-year-label">{{ yr }}</h2>
+    <ul class="archive-list">
+    {% set prevYear = yr %}
+  {% endif %}
   <li>
     <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
     {% if item.data.linkUrl %}
     <a href="{{ item.url }}">{{ item.data.title }} ↗</a>
+    <span class="archive-type-badge archive-type-link">Link</span>
     {% else %}
     <a href="{{ item.url }}">{{ item.data.title }}</a>
+    <span class="archive-type-badge archive-type-post">Post</span>
     {% endif %}
   </li>
 {% endfor %}
-</ul>
+{% if prevYear !== "" %}</ul>{% endif %}
+
+{% if collections.everything.length == 0 %}
+<p style="color: var(--text-muted); font-style: italic; margin-top: 1rem;">Nothing archived yet.</p>
+{% endif %}

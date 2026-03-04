@@ -14,12 +14,16 @@
 <body>
   <header id="site-header">
     <div class="header-inner">
-      <h1 class="site-title"><a href="{{ '/' | url }}">{{ site.title }}</a></h1>
+      <p class="site-title"><a href="{{ '/' | url }}">{{ site.title }}</a></p>
+      {% set urlHome = '/' | url %}
+      {% set urlDigest = '/digest/' | url %}
+      {% set urlArchive = '/archive/' | url %}
+      {% set urlAbout = '/about/' | url %}
       <nav>
-        <a href="{{ '/' | url }}">Home</a>
-        <a href="{{ '/digest/' | url }}">AI Daily Digest</a>
-        <a href="{{ '/archive/' | url }}">Archive</a>
-        <a href="{{ '/about/' | url }}">About</a>
+        <a href="{{ urlHome }}" {% if page.url == urlHome %}aria-current="page"{% endif %}>Home</a>
+        <a href="{{ urlDigest }}" {% if page.url == urlDigest or (page.url | string).indexOf(urlDigest) == 0 %}aria-current="page"{% endif %}>AI Daily Digest</a>
+        <a href="{{ urlArchive }}" {% if page.url == urlArchive %}aria-current="page"{% endif %}>Archive</a>
+        <a href="{{ urlAbout }}" {% if page.url == urlAbout %}aria-current="page"{% endif %}>About</a>
         <a href="{{ '/feed.xml' | url }}">RSS</a>
       </nav>
     </div>

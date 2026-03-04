@@ -4,25 +4,35 @@ title: AI Daily Digest
 permalink: /digest/
 ---
 <div class="digest-header">
-  <h1>🤖 AI Daily Digest</h1>
-  <p class="digest-subtitle">A daily curated feed of AI news, with commentary from an enterprise architecture perspective.</p>
-  <p class="digest-rss"><a href="{{ '/digest/feed.xml' | url }}">RSS Feed ↗</a></p>
+  <span class="digest-kicker">AI Daily Digest</span>
+  <h1>Your daily briefing on AI worth knowing.</h1>
+  <p class="digest-subtitle">Curated AI news with commentary from an enterprise architecture perspective.</p>
+  <p class="digest-rss"><a href="{{ '/digest/feed.xml' | url }}">Subscribe via RSS ↗</a></p>
+</div>
+
+<div class="section-label">
+  <span class="section-label-text">Issues</span>
+  <span class="section-label-line"></span>
 </div>
 
 <section class="feed-grid">
 {% for item in collections.digest | reverse %}
 <div class="feed-item">
-  <h2><a href="{{ item.url | url }}">{{ item.data.title }}</a></h2>
+  <div class="feed-item-title-row">
+    <h2><a href="{{ item.url | url }}">{{ item.data.title }}</a></h2>
+    <span class="feed-badge feed-badge-digest">Digest</span>
+  </div>
   <div class="meta">
     <time datetime="{{ item.date | isoDate }}">{{ item.date | readableDate }}</time>
   </div>
   <div class="excerpt">
-    <p>{{ item.templateContent | striptags | truncate(320, true, '…') }}</p>
+    <p>{{ item.templateContent | striptags | truncate(280, true, '…') }}</p>
   </div>
+  <a class="feed-readmore" href="{{ item.url | url }}">Read issue →</a>
 </div>
 {% endfor %}
 </section>
 
 {% if collections.digest.length == 0 %}
-<p style="color: var(--text-muted); font-style: italic;">No digests yet. The first one is coming.</p>
+<p style="color: var(--text-muted); font-style: italic; margin-top: 1rem;">No digests yet. The first one is coming.</p>
 {% endif %}
