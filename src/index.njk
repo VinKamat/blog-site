@@ -8,14 +8,6 @@ pagination:
 permalink: "{% if pagination.pageNumber == 0 %}/index.html{% else %}/page/{{ pagination.pageNumber + 1 }}/index.html{% endif %}"
 ---
 
-{% if pagination.pageNumber == 0 %}
-<section class="hero">
-  <span class="hero-kicker">March 2026</span>
-  <h1>Architecture, AI,<br>and the shape of what's next.</h1>
-  <p>Short takes, deep dives, and practical notes on building real systems with AI.</p>
-</section>
-{% endif %}
-
 <div class="section-label">
   <span class="section-label-text">{% if pagination.pageNumber == 0 %}Latest Writing{% else %}Writing — Page {{ pagination.pageNumber + 1 }}{% endif %}</span>
   <span class="section-label-line"></span>

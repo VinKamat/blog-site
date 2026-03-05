@@ -12,13 +12,18 @@
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | url }}">
 </head>
 <body>
-  <header id="site-header">
+  {% set urlHome = '/' | url %}
+  {% set urlDigest = '/digest/' | url %}
+  {% set urlArchive = '/archive/' | url %}
+  {% set urlAbout = '/about/' | url %}
+  {% set isHome = page.url == urlHome %}
+
+  <header id="site-header"{% if isHome %} class="masthead-home"{% endif %}>
     <div class="header-inner">
-      <p class="site-title"><a href="{{ '/' | url }}">{{ site.title }}</a></p>
-      {% set urlHome = '/' | url %}
-      {% set urlDigest = '/digest/' | url %}
-      {% set urlArchive = '/archive/' | url %}
-      {% set urlAbout = '/about/' | url %}
+      <div class="header-brand">
+        <p class="site-title"><a href="{{ urlHome }}">{{ site.title }}</a></p>
+        {% if isHome %}<p class="site-byline">by {{ site.author }}</p>{% endif %}
+      </div>
       <nav>
         <a href="{{ urlHome }}" {% if page.url == urlHome %}aria-current="page"{% endif %}>Home</a>
         <a href="{{ urlDigest }}" {% if page.url == urlDigest or (page.url | string).indexOf(urlDigest) == 0 %}aria-current="page"{% endif %}>AI Daily Digest</a>
@@ -27,6 +32,13 @@
         <a href="{{ '/feed.xml' | url }}">RSS</a>
       </nav>
     </div>
+    {% if isHome %}
+    <div class="masthead-tagline">
+      <div class="masthead-tagline-inner">
+        <p>Architecture, AI, and the shape of what's next.</p>
+      </div>
+    </div>
+    {% endif %}
   </header>
 
   <div class="container">

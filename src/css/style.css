@@ -94,6 +94,12 @@ a { color: var(--accent); }
   gap: 1rem;
 }
 
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.06rem;
+}
+
 .site-title {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -104,6 +110,63 @@ a { color: var(--accent); }
 .site-title a {
   text-decoration: none;
   color: var(--text);
+}
+
+.site-byline {
+  font-family: var(--font-sans);
+  font-size: 0.67rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── HOMEPAGE MASTHEAD ── */
+
+#site-header.masthead-home {
+  position: relative;
+}
+
+#site-header.masthead-home::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 55%, #a78bfa 100%);
+  opacity: 0.4;
+  transition: opacity 0.28s ease;
+  pointer-events: none;
+}
+
+#site-header.masthead-home.scrolled::after {
+  opacity: 0;
+}
+
+.masthead-tagline {
+  overflow: hidden;
+  max-height: 2.6rem;
+  transition: max-height 0.32s ease, opacity 0.28s ease;
+  opacity: 1;
+}
+
+.masthead-tagline-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0.28rem 1.5rem 0.5rem;
+  border-top: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.masthead-tagline p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.87rem;
+  color: var(--text-soft);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+#site-header.masthead-home.scrolled .masthead-tagline {
+  max-height: 0;
+  opacity: 0;
 }
 
 nav {
@@ -986,6 +1049,8 @@ footer a { color: inherit; }
   nav { gap: .15rem; }
   nav a { letter-spacing: .05em; font-size: .69rem; padding: .35rem .52rem; }
   .hero { padding: .9rem 1.2rem 1rem; }
+  .masthead-tagline-inner { padding: 0.22rem 1rem 0.42rem; }
+  .masthead-tagline p { font-size: .82rem; }
   .digest-header { padding: 2rem 1.6rem; }
   article { padding: 1.6rem 1.4rem; }
   .feed-item { padding: 1.35rem 1.45rem; }
