@@ -103,7 +103,7 @@ a { color: var(--accent); }
 .site-title {
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.62rem;
   letter-spacing: -0.018em;
 }
 
@@ -132,7 +132,7 @@ a { color: var(--accent); }
   bottom: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 55%, #a78bfa 100%);
-  opacity: 0.4;
+  opacity: 0.55;
   transition: opacity 0.28s ease;
   pointer-events: none;
 }
@@ -141,9 +141,26 @@ a { color: var(--accent); }
   opacity: 0;
 }
 
+/* Elevated brand presentation on homepage */
+#site-header.masthead-home .header-inner {
+  padding-top: 1.3rem;
+  padding-bottom: 1.1rem;
+}
+
+#site-header.masthead-home .site-title {
+  font-size: 2.05rem;
+  letter-spacing: -0.024em;
+}
+
+#site-header.masthead-home .site-byline {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
 .masthead-tagline {
   overflow: hidden;
-  max-height: 2.6rem;
+  max-height: 3.5rem;
   transition: max-height 0.32s ease, opacity 0.28s ease;
   opacity: 1;
 }
@@ -151,16 +168,17 @@ a { color: var(--accent); }
 .masthead-tagline-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0.28rem 1.5rem 0.5rem;
-  border-top: 1px solid rgba(99, 102, 241, 0.1);
+  padding: 0.52rem 1.5rem 0.7rem;
+  border-top: 1px solid var(--border);
 }
 
 .masthead-tagline p {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 0.87rem;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: normal;
   color: var(--text-soft);
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
   line-height: 1.4;
 }
 
@@ -1027,202 +1045,14 @@ article hr {
   letter-spacing: .03em;
 }
 
-/* ── SIGNAL MARKER (left-rail scroll-aware nav) ── */
-
-/* Default: hidden between mobile and wide desktop */
-.signal-marker {
-  display: none;
-}
-
-/* Wide desktop: fixed left rail pill */
-@media (min-width: 1200px) {
-  .signal-marker {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
-    position: fixed;
-    left: 0.9rem;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 45;
-  }
-}
-
-/* Mobile: inline bar between header and content */
-@media (max-width: 760px) {
-  .signal-marker {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    width: 100%;
-    background: var(--bg-subtle);
-    border-bottom: 1px solid var(--border);
-    padding: 0 1rem;
-    gap: 0;
-  }
-}
-
-.signal-marker-trigger {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.42rem 0.65rem;
-  background: var(--bg-glass);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  cursor: pointer;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-sm);
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  user-select: none;
-  color: var(--text-muted);
-  font-size: 0.64rem;
-  font-weight: 600;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.signal-marker-trigger:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.signal-marker-trigger:hover,
-.signal-marker.expanded .signal-marker-trigger {
-  background: var(--bg-elevated);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-md);
-  color: var(--text);
-}
-
-/* Mobile: strip the pill look */
-@media (max-width: 760px) {
-  .signal-marker-trigger {
-    flex: 1;
-    border: none;
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: none;
-    border-radius: 0;
-    padding: 0.48rem 0;
-    justify-content: center;
-  }
-  .signal-marker-trigger:hover,
-  .signal-marker.expanded .signal-marker-trigger {
-    background: transparent;
-    box-shadow: none;
-    border: none;
-    color: var(--text-muted);
-  }
-}
-
-.sm-dot {
-  font-size: 0.42rem;
-  color: var(--accent);
-  opacity: 0.7;
-  flex-shrink: 0;
-}
-
-.sm-text-wrap {
-  position: relative;
-  width: 5.5rem;
-  height: 1em;
-  overflow: hidden;
-}
-
-.sm-brand,
-.sm-byline,
-.sm-section {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.signal-marker.sm-top .sm-brand  { opacity: 1; }
-.signal-marker.sm-mid .sm-byline { opacity: 1; }
-.signal-marker.sm-deep .sm-section { opacity: 1; }
-
-/* Expanded micro-card panel */
-.signal-marker-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
-  padding: 0.35rem 0.25rem;
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-4px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
-}
-
-.signal-marker.expanded .signal-marker-panel {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0);
-  transition-delay: 0s;
-}
-
-/* Mobile: panel always visible, inline horizontal */
-@media (max-width: 760px) {
-  .signal-marker-panel {
-    visibility: visible;
-    opacity: 1;
-    pointer-events: auto;
-    transform: none;
-    transition: none;
-    flex-direction: row;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0.35rem 0;
-    gap: 0.05rem;
-  }
-}
-
-.sm-nav-link {
-  display: block;
-  padding: 0.3rem 0.65rem;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-decoration: none;
-  border-radius: 6px;
-  letter-spacing: 0.05em;
-  transition: background 0.15s ease, color 0.15s ease;
-  white-space: nowrap;
-}
-
-.sm-nav-link:hover {
-  background: rgba(30, 80, 226, 0.07);
-  color: var(--accent);
-}
-
-@media (max-width: 760px) {
-  .sm-nav-link {
-    padding: 0.26rem 0.48rem;
-    font-size: 0.62rem;
-  }
-}
-
-/* ── HOMEPAGE RHYTHM: tighten top spacing ── */
+/* ── HOMEPAGE RHYTHM ── */
 
 main.main-home {
-  padding-top: 1.4rem;
+  padding-top: 2rem;
+}
+
+main.main-home .section-label:first-child {
+  margin-top: 0.5rem;
 }
 
 /* ── FOOTER ── */
