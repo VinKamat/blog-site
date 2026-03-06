@@ -1,0 +1,19 @@
+---
+layout: base.njk
+---
+<a class="back-link" href="{{ '/via-x/' | url }}">← Via X</a>
+
+<div class="digest-header">
+  <span class="digest-kicker">Via X</span>
+  <h1>What caught my eye on X.</h1>
+  <p class="digest-subtitle">Bookmarks worth keeping, with a thought on each.</p>
+  <p class="digest-rss"><a href="{{ '/via-x/feed.xml' | url }}">Subscribe via RSS ↗</a></p>
+</div>
+
+<article>
+  <h2>{{ title }}</h2>
+  <div class="meta">
+    <time datetime="{{ date | isoDate }}">{{ date | readableDate }}</time>
+  </div>
+  {{ content | safe }}
+</article>

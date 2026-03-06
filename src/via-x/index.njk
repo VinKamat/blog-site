@@ -1,0 +1,50 @@
+---
+layout: base.njk
+title: Via X
+eleventyExcludeFromCollections: true
+pagination:
+  data: collections.via-x
+  size: 1
+  alias: viaXItems
+  reverse: true
+permalink: "{% if pagination.pageNumber == 0 %}/via-x/{% else %}/via-x/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
+---
+<div class="digest-header">
+  <span class="digest-kicker">Via X</span>
+  <h1>What caught my eye on X.</h1>
+  <p class="digest-subtitle">Bookmarks worth keeping, with a thought on each.</p>
+  <p class="digest-rss"><a href="{{ '/via-x/feed.xml' | url }}">Subscribe via RSS ↗</a></p>
+</div>
+
+{% set currentItem = viaXItems[0] %}
+
+{% if currentItem %}
+<article>
+  <h2>{{ currentItem.data.title }}</h2>
+  <div class="meta">
+    <time datetime="{{ currentItem.date | isoDate }}">{{ currentItem.date | readableDate }}</time>
+  </div>
+  {{ currentItem.templateContent | safe }}
+</article>
+
+{% if pagination.pages.length > 1 %}
+<nav class="pagination-nav" aria-label="Via X navigation">
+  {% if pagination.href.previous %}
+  <a class="pagination-link pagination-prev" href="{{ pagination.href.previous | url }}">← Newer</a>
+  {% else %}
+  <span class="pagination-link pagination-prev pagination-disabled" aria-hidden="true"></span>
+  {% endif %}
+
+  <span class="pagination-page-info">{{ pagination.pageNumber + 1 }} of {{ pagination.pages.length }}</span>
+
+  {% if pagination.href.next %}
+  <a class="pagination-link pagination-next" href="{{ pagination.href.next | url }}">Older →</a>
+  {% else %}
+  <span class="pagination-link pagination-next pagination-disabled" aria-hidden="true"></span>
+  {% endif %}
+</nav>
+{% endif %}
+
+{% else %}
+<p style="color: var(--text-muted); font-style: italic; margin-top: 1rem;">Nothing yet. Check back tomorrow.</p>
+{% endif %}
