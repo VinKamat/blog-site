@@ -16,7 +16,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/via-x/{% else %}/via-x/page/{{ p
   <p class="digest-rss"><a href="{{ '/via-x/feed.xml' | url }}">Subscribe via RSS ↗</a></p>
 </div>
 
-{% set currentItem = viaXItems[0] %}
+{% set currentItem = viaXItems %}
 
 {% if currentItem %}
 <article>

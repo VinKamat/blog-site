@@ -16,7 +16,7 @@ permalink: "{% if pagination.pageNumber == 0 %}/digest/{% else %}/digest/page/{{
   <p class="digest-rss"><a href="{{ '/digest/feed.xml' | url }}">Subscribe via RSS ↗</a></p>
 </div>
 
-{% set currentDigest = digestItems[0] %}
+{% set currentDigest = digestItems %}
 
 {% if currentDigest %}
 <article>
