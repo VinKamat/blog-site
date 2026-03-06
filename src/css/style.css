@@ -1,5 +1,5 @@
 /* Nunito via Google Fonts CDN — add local woff2 files for production performance */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap');
 
 @font-face {
   font-family: 'Instrument Serif';
@@ -38,6 +38,7 @@
   --radius-xl: 26px;
   --max-width: 940px;
   --content-width: 760px;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
@@ -96,15 +97,31 @@ a { color: var(--accent); }
 
 .header-brand {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.site-title-group {
+  display: flex;
   flex-direction: column;
-  gap: 0.06rem;
+  gap: 0.04rem;
 }
 
 .site-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.62rem;
-  letter-spacing: -0.018em;
+  font-optical-sizing: auto;
+  font-size: 1.55rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .site-title a {
@@ -113,11 +130,12 @@ a { color: var(--accent); }
 }
 
 .site-byline {
-  font-family: var(--font-sans);
-  font-size: 0.67rem;
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.7rem;
+  font-weight: 300;
   color: var(--text-muted);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
 }
 
 /* ── HOMEPAGE MASTHEAD ── */
@@ -148,14 +166,18 @@ a { color: var(--accent); }
 }
 
 #site-header.masthead-home .site-title {
-  font-size: 2.05rem;
-  letter-spacing: -0.024em;
+  font-size: 2rem;
+  letter-spacing: -0.028em;
 }
 
 #site-header.masthead-home .site-byline {
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--text-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.01em;
+}
+
+#site-header.masthead-home .site-logo svg {
+  width: 28px;
+  height: 28px;
 }
 
 .masthead-tagline {
