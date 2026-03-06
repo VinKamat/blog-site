@@ -26,7 +26,9 @@
       </div>
       <nav>
         <a href="{{ urlHome }}" {% if isHomepage %}aria-current="page"{% endif %}>Home</a>
-        <a href="{{ urlDigest }}" {% if page.url == urlDigest or (page.url | string).indexOf(urlDigest) == 0 %}aria-current="page"{% endif %}>AI Daily Digest</a>
+        <a href="{{ urlDigest }}" {% if page.url == urlDigest or (page.url | string).indexOf(urlDigest) == 0 %}aria-current="page"{% endif %}>AI Digest</a>
+        {% set urlViaX = '/via-x/' | url %}
+        <a href="{{ urlViaX }}" {% if page.url == urlViaX or (page.url | string).indexOf(urlViaX) == 0 %}aria-current="page"{% endif %}>Via X</a>
         <a href="{{ urlArchive }}" {% if page.url == urlArchive %}aria-current="page"{% endif %}>Archive</a>
         <a href="{{ urlAbout }}" {% if page.url == urlAbout %}aria-current="page"{% endif %}>About</a>
         <a href="{{ '/feed.xml' | url }}">RSS</a>
@@ -41,22 +43,6 @@
     {% endif %}
   </header>
 
-  <div class="signal-marker sm-top" id="signal-marker">
-    <div class="signal-marker-trigger" id="signal-marker-btn" tabindex="0" role="button" aria-expanded="false" aria-haspopup="true" aria-controls="signal-marker-panel">
-      <span class="sm-dot" aria-hidden="true">◆</span>
-      <span class="sm-text-wrap">
-        <span class="sm-brand">Signals</span>
-        <span class="sm-byline">by Vin</span>
-        <span class="sm-section">Field Notes</span>
-      </span>
-    </div>
-    <div class="signal-marker-panel" id="signal-marker-panel" aria-hidden="true">
-      <a href="{{ urlHome }}" class="sm-nav-link">Home</a>
-      <a href="{{ urlDigest }}" class="sm-nav-link">Digest</a>
-      <a href="{{ urlArchive }}" class="sm-nav-link">Archive</a>
-    </div>
-  </div>
-
   <div class="container">
     <main{% if isHome %} class="main-home"{% endif %}>
       {{ content | safe }}
@@ -69,19 +55,10 @@
   <script>
     (function () {
       var header = document.getElementById('site-header');
-      var marker = document.getElementById('signal-marker');
-      var markerBtn = document.getElementById('signal-marker-btn');
-      var markerPanel = document.getElementById('signal-marker-panel');
       var ticking = false;
 
       function updateScrollState() {
-        var y = window.scrollY;
-        header.classList.toggle('scrolled', y > 8);
-        if (marker) {
-          var state = y < 180 ? 'sm-top' : y < 600 ? 'sm-mid' : 'sm-deep';
-          marker.classList.remove('sm-top', 'sm-mid', 'sm-deep');
-          marker.classList.add(state);
-        }
+        header.classList.toggle('scrolled', window.scrollY > 8);
         ticking = false;
       }
 
@@ -93,40 +70,6 @@
       });
 
       updateScrollState();
-
-      if (marker && markerBtn && markerPanel) {
-        function expand() {
-          marker.classList.add('expanded');
-          markerBtn.setAttribute('aria-expanded', 'true');
-          markerPanel.removeAttribute('aria-hidden');
-        }
-        function collapse() {
-          marker.classList.remove('expanded');
-          markerBtn.setAttribute('aria-expanded', 'false');
-          markerPanel.setAttribute('aria-hidden', 'true');
-        }
-
-        // Desktop: hover to expand
-        marker.addEventListener('mouseenter', expand);
-        marker.addEventListener('mouseleave', collapse);
-
-        // Keyboard focus
-        marker.addEventListener('focusin', expand);
-        marker.addEventListener('focusout', function (e) {
-          if (!marker.contains(e.relatedTarget)) collapse();
-        });
-
-        // Mobile: tap to toggle
-        markerBtn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          if (marker.classList.contains('expanded')) collapse();
-          else expand();
-        });
-
-        document.addEventListener('click', function (e) {
-          if (!marker.contains(e.target)) collapse();
-        });
-      }
     })();
   </script>
 </body>
